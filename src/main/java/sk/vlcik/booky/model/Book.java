@@ -1,11 +1,30 @@
 package sk.vlcik.booky.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Book", schema="public")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
     private String name;
+
+    @JsonIgnore
+    @ManyToOne
     private Author author;
-    private Genre genre;
+
+    @OneToOne
+    private Category category;
+
+    @Column
     private Status status;
 
     public Long getId() {
@@ -32,12 +51,12 @@ public class Book {
         this.author = author;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Status getStatus() {
@@ -54,7 +73,7 @@ public class Book {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", author=" + author.getName() +
-                ", genre=" + genre +
+                ", category=" + category.getName() +
                 ", status=" + status +
                 '}';
     }

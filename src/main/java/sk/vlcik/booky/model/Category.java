@@ -1,25 +1,19 @@
 package sk.vlcik.booky.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Author {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column
     private String name;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
-    private List<Book> books;
-
+    @Column
+    private int status;
 
     public Long getId() {
         return id;
@@ -37,20 +31,20 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public int getStatus() {
+        return status;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", books=" + books +
+                ", status=" + status +
                 '}';
     }
 }

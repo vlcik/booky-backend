@@ -12,12 +12,13 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "sk.vlcik.booky" })
+@ComponentScan("sk.vlcik.booky")
 @PropertySource(value = { "classpath:application.properties" })
 public class BookyConfiguration {
 
@@ -28,13 +29,13 @@ public class BookyConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.websystique.spring.model" });
+        sessionFactory.setPackagesToScan(new String[] { "sk.vlcik.booky.model" });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
 
     @Bean
-    public DataSource dataSource() {
+    private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
@@ -52,7 +53,6 @@ public class BookyConfiguration {
     }
 
     @Bean
-    @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory s) {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(s);
