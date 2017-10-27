@@ -20,7 +20,6 @@ public class Author {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private List<Book> books;
 
-
     public Long getId() {
         return id;
     }
