@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+repositories{
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies{
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
+    compile "org.springframework:spring-orm:5.0.0.RELEASE"
+    compile "org.hibernate:hibernate-core:5.2.11.Final"
+    compile "org.hibernate:hibernate-annotations:3.5.6-final"
+    compile "org.postgresql:postgresql:42.1.1"
+    testCompile "org.testng:testng:6.9.4"
+}
