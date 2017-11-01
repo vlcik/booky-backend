@@ -2,6 +2,7 @@ package sk.vlcik.booky.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.vlcik.booky.dao.IBookDao;
 import sk.vlcik.booky.dao.impl.BookDao;
 import sk.vlcik.booky.model.Book;
 import sk.vlcik.booky.service.IBookService;
@@ -13,7 +14,7 @@ import java.util.List;
 public class BookService implements IBookService {
 
     @Autowired
-    private BookDao bookDao;
+    private IBookDao bookDao;
 
     @Transactional
     @Override
