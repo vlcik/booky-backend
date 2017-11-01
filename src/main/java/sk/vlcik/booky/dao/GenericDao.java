@@ -14,7 +14,7 @@ public abstract class GenericDao<T> {
     @Autowired
     private SessionFactory sessionFactory;
 
-    private Session getSession() {
+    protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 

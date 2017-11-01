@@ -4,7 +4,7 @@ import sk.vlcik.booky.model.Book;
 
 import java.util.List;
 
-public interface BookDao {
+public interface IBookDao {
 
     List<Book> findAll();
 

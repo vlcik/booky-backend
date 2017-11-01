@@ -13,6 +13,7 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column
     private String name;
 
@@ -20,6 +21,13 @@ public class Author {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private List<Book> books;
 
+    public Author(){
+
+    }
+
+    public Author(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

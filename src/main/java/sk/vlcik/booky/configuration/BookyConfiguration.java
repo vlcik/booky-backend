@@ -34,7 +34,6 @@ public class BookyConfiguration {
         return sessionFactory;
     }
 
-    @Bean
     private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
