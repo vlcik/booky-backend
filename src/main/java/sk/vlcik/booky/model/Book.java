@@ -1,14 +1,18 @@
 package sk.vlcik.booky.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Book", schema="public")
-public class Book {
+public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,8 +21,9 @@ public class Book {
     @Column
     private String name;
 
-    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "author_id", updatable = false, insertable = false, nullable=false)
+    @JsonManagedReference
     private Author author;
 
     @OneToOne

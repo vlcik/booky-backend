@@ -1,18 +1,19 @@
 package sk.vlcik.booky;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+@RunWith(SpringRunner.class)
 public class JsonTest {
 
     Logger logger = LoggerFactory.getLogger(JsonTest.class);
@@ -21,22 +22,25 @@ public class JsonTest {
     public void givenBidirectionRelation_whenSerializing_thenException()
             throws JsonProcessingException {
 
-        User user = new User(1, "John");
-        Item item = new Item(2, "book", user);
-        user.addItem(item);
+        Author author = new Author(1L, "John Snow");
 
-        String result = new ObjectMapper().writeValueAsString(item);
+        Book book1 = new Book(1L, "Book1", author);
+        Book book2 = new Book(2L, "Book2", author);
+
+        author.setBooks(Arrays.asList(book1, book2));
+
+        String result = new ObjectMapper().writeValueAsString(author);
 
         logger.debug(result);
     }
 
     @Test
     public void mapTest() {
-        List<User> users = Arrays.asList(new User(1, "John"), new User(2, "George"), new User(3, "Martina"));
+        List<Book> books = Arrays.asList(new Book(1L, "John"), new Book(2L, "George"), new Book(3L, "Martina"));
 
-        logger.debug(users
+        logger.debug(books
                 .stream()
-                .map(User::getName)
+                .map(Book::getName)
                 .collect(Collectors.toList())
                 .toString()
         );

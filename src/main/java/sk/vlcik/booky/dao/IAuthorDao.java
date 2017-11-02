@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IAuthorDao {
 
-    List<Book> getAuthorBooks(Author author);
+    Author getAuthor(Long id);
 
 }

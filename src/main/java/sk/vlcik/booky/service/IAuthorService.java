@@ -6,5 +6,5 @@ import sk.vlcik.booky.model.Book;
 import java.util.List;
 
 public interface IAuthorService {
-    List<Book> getAuthorBooks(Author author);
+    Author getAuthor(Long id);
 }

@@ -17,10 +17,7 @@ public class AuthorDao extends GenericDao<Author> implements IAuthorDao {
     }
 
     @Override
-    public List<Book> getAuthorBooks(Author author) {
-        return getSession()
-                .createQuery("SELECT b FROM Book b WHERE b.author=:author")
-                .setParameter("author", author)
-                .list();
+    public Author getAuthor(Long id){
+        return super.getEntity(id);
     }
 }

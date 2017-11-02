@@ -18,11 +18,9 @@ public class AuthorController {
     @Autowired
     private IAuthorService authorService;
 
-    @RequestMapping(value = "/author/{authorId:[\\d]+}/books", method = RequestMethod.GET)
+    @RequestMapping(value = "/authors/{authorId:[\\d]+}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Book> getAuthorBooks(@PathVariable Long authorId) {
-        List<Book> books = authorService.getAuthorBooks(new Author(authorId));
-        logger.debug(books.toString());
-        return books;
+    public Author getAuthorBooks(@PathVariable Long authorId) {
+        return authorService.getAuthor(authorId);
     }
 }

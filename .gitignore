@@ -1,8 +1,6 @@
 .gradle
-.idea/
 .idea/**
 out
 target
 *.iml
-src/main/resources/application.properties
 *.properties

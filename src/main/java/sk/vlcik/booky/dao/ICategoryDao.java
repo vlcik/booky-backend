@@ -8,4 +8,6 @@ public interface ICategoryDao {
 
     List<Category> findAll();
 
+    Category find(Long id);
+
 }

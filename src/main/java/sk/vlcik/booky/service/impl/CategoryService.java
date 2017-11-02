@@ -21,4 +21,10 @@ public class CategoryService implements ICategoryService {
         return categoryDao.findAll();
     }
 
+    @Transactional
+    @Override
+    public Category getCategory(Long id){
+        return categoryDao.find(id);
+    }
+
 }

@@ -12,8 +12,6 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
-
     @Autowired
     private ICategoryService categoryService;
 
@@ -21,5 +19,11 @@ public class CategoryController {
     @ResponseBody
     public List<Category> getCategories() {
         return categoryService.findAll();
+    }
+
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Category getCategory(Long id) {
+        return categoryService.getCategory(id);
     }
 }

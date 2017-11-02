@@ -1,29 +1,38 @@
-package sk.vlcik.booky.model;
+package sk.vlcik.booky;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
-@Entity
-public class Author implements Serializable{
+public class Author {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author", updatable = false, insertable = false, nullable=false)
     @JsonBackReference
     private List<Book> books;
+
+    public Author(){
+
+    }
+
+    public Author(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Author(Long id, String name, List<Book> books) {
+        this.id = id;
+        this.name = name;
+        this.books = books;
+    }
+
+    public Author(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
