@@ -33,15 +33,32 @@ public class BookController {
         try {
             return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
         } catch (ItemNotFoundException e) {
-            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping(value = "/books", headers="Accept=application/json")
-    public ResponseEntity<Book> update(@RequestBody Book book) {
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
 
-        Book newBook = bookService.addBook(book);
+        bookService.addBook(book);
 
-        return new ResponseEntity<>(newBook, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/books/{id}", headers="Accept=application/json")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+
+        bookService.updateBook(book);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/books/{id}")
+    public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
+
+        bookService.deleteBook(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

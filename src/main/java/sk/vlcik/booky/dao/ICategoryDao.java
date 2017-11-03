@@ -4,10 +4,6 @@ import sk.vlcik.booky.model.Category;
 
 import java.util.List;
 
-public interface ICategoryDao {
-
-    List<Category> findAll();
-
-    Category find(Long id);
+public interface ICategoryDao extends IGenericDao<Category> {
 
 }

@@ -25,20 +25,26 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Book addBook(Book book) {
-        return bookDao.addBook(book);
+    @Transactional
+    public void addBook(Book book) {
+        bookDao.saveEntity(book);
     }
 
     @Override
+    @Transactional
     public void deleteBook(Long id) {
+        bookDao.delete(id);
+    }
 
+    @Override
+    @Transactional
+    public void updateBook(Book book) {
+        bookDao.updateEntity(book);
     }
 
     @Override
     @Transactional
     public Book getBook(Long id) throws ItemNotFoundException {
-        Book book = bookDao.getBook(id);
-        Hibernate.initialize(book.getAuthor());
-        return book;
+        return bookDao.getEntity(id);
     }
 }

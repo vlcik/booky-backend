@@ -1,9 +1,10 @@
 package sk.vlcik.booky.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.vlcik.booky.exception.ItemNotFoundException;
 import sk.vlcik.booky.model.Category;
 import sk.vlcik.booky.service.ICategoryService;
 
@@ -15,15 +16,32 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    @GetMapping(value = "/categories")
     @ResponseBody
-    public List<Category> getCategories() {
-        return categoryService.findAll();
+    public ResponseEntity<List<Category>> getCategories() {
+        return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/categories/{id}")
     @ResponseBody
-    public Category getCategory(Long id) {
-        return categoryService.getCategory(id);
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) throws ItemNotFoundException {
+        return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/categories", headers="Accept=application/json")
+    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+
+        categoryService.addCategory(category);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/categories/{id}", headers="Accept=application/json")
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+
+        category.setId(id);
+        categoryService.updateCategory(category);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

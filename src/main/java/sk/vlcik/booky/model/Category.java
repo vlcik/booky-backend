@@ -7,7 +7,8 @@ import java.io.Serializable;
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="category_seq", sequenceName="category_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="category_seq")
     private Long id;
 
     @Column

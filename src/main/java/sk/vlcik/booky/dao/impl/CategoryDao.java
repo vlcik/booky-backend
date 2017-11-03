@@ -15,13 +15,4 @@ public class CategoryDao extends GenericDao<Category> implements ICategoryDao {
         return Category.class;
     }
 
-    @Override
-    public List<Category> findAll() {
-        return super.findAll();
-    }
-
-    @Override
-    public Category find(Long id) {
-        return super.getEntity(id);
-    }
 }

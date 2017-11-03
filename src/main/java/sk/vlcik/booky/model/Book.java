@@ -15,7 +15,8 @@ import java.io.Serializable;
 public class Book implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="book_seq", sequenceName="book_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="book_seq")
     private Long id;
 
     @Column

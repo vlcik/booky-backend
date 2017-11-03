@@ -16,25 +16,4 @@ public class BookDao extends GenericDao<Book> implements IBookDao {
         return Book.class;
     }
 
-    @Override
-    public List<Book> findAll() {
-        return super.findAll();
-    }
-
-    @Override
-    public Book getBook(Long id) {
-        return super.getEntity(id);
-    }
-
-    @Override
-    public Book addBook(Book book) {
-        return super.saveEntity(book);
-    }
-
-    @Override
-    public List<Book> findAuthorBooks(Author author) {
-        return getSession().createQuery("SELECT b FROM Book b WHERE b.author=:author")
-                .setParameter("author", author)
-                .getResultList();
-    }
 }

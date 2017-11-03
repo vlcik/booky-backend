@@ -3,6 +3,7 @@ package sk.vlcik.booky.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.vlcik.booky.dao.ICategoryDao;
+import sk.vlcik.booky.exception.ItemNotFoundException;
 import sk.vlcik.booky.model.Category;
 import sk.vlcik.booky.service.ICategoryService;
 
@@ -23,8 +24,19 @@ public class CategoryService implements ICategoryService {
 
     @Transactional
     @Override
-    public Category getCategory(Long id){
-        return categoryDao.find(id);
+    public Category getCategory(Long id) throws ItemNotFoundException {
+        return categoryDao.getEntity(id);
     }
 
+    @Override
+    @Transactional
+    public void updateCategory(Category category) {
+        categoryDao.updateEntity(category);
+    }
+
+    @Override
+    @Transactional
+    public void addCategory(Category category) {
+        categoryDao.saveEntity(category);
+    }
 }

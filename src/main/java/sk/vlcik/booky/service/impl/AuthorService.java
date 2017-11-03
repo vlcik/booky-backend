@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sk.vlcik.booky.dao.IAuthorDao;
 import sk.vlcik.booky.dao.IBookDao;
 import sk.vlcik.booky.dao.impl.BookDao;
+import sk.vlcik.booky.exception.ItemNotFoundException;
 import sk.vlcik.booky.model.Author;
 import sk.vlcik.booky.model.Book;
 import sk.vlcik.booky.service.IAuthorService;
@@ -18,14 +19,41 @@ public class AuthorService implements IAuthorService {
     @Autowired
     private IAuthorDao authorDao;
 
-    @Autowired
-    private IBookDao bookDao;
-
     @Transactional
     @Override
-    public Author getAuthor(Long id) {
-        Author author = authorDao.getAuthor(id);
-        author.setBooks(bookDao.findAuthorBooks(author));
+    public Author getAuthor(Long id) throws ItemNotFoundException {
+        Author author = authorDao.getEntity(id);
+        author.setBooks(authorDao.findAuthorBooks(id));
         return author;
+    }
+
+    @Override
+    @Transactional
+    public List<Book> getAuthorBooks(Long id) throws ItemNotFoundException {
+        return authorDao.findAuthorBooks(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Author> getAuthors() {
+        return authorDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void addAuthor(Author author) {
+        authorDao.saveEntity(author);
+    }
+
+    @Override
+    @Transactional
+    public void updateAuthor(Author author) {
+        authorDao.updateEntity(author);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAuthor(Long id) {
+        authorDao.delete(id);
     }
 }
