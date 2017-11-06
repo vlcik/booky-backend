@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.vlcik.booky.exception.ItemNotFoundException;
+import sk.vlcik.booky.model.Book;
 import sk.vlcik.booky.model.Category;
 import sk.vlcik.booky.service.ICategoryService;
 
@@ -26,6 +27,12 @@ public class CategoryController {
     @ResponseBody
     public ResponseEntity<Category> getCategory(@PathVariable Long id) throws ItemNotFoundException {
         return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/categories/{id}/books")
+    @ResponseBody
+    public ResponseEntity<List<Book>> getCategoryBooks(@PathVariable Long id) throws ItemNotFoundException {
+        return new ResponseEntity<>(categoryService.getCategoryBooks(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "/categories", headers="Accept=application/json")
