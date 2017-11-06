@@ -26,8 +26,8 @@ public class BookService implements IBookService {
 
     @Override
     @Transactional
-    public void addBook(Book book) {
-        bookDao.saveEntity(book);
+    public Long addBook(Book book) {
+        return bookDao.saveEntity(book);
     }
 
     @Override

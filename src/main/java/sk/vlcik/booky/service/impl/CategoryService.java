@@ -43,7 +43,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
-    public void addCategory(Category category) {
-        categoryDao.saveEntity(category);
+    public Long addCategory(Category category) {
+        return categoryDao.saveEntity(category);
     }
 }

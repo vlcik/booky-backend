@@ -50,11 +50,11 @@ public abstract class GenericDao<T> implements IGenericDao<T> {
 
     public T getEntity(Long id) throws ItemNotFoundException {
         Optional<T> entity = Optional.ofNullable(getSession().get(getModelClass(), id));
-        return entity.orElseThrow(() -> new ItemNotFoundException());
+        return entity.orElseThrow(ItemNotFoundException::new);
     }
 
-    public T saveEntity(T entity){
-        return (T) getSession().save(entity);
+    public Long saveEntity(T entity){
+        return (Long) getSession().save(entity);
     }
 
     @Override

@@ -2,6 +2,7 @@ package sk.vlcik.booky.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.vlcik.booky.exception.ItemNotFoundException;
@@ -19,36 +20,33 @@ public class CategoryController {
 
     @GetMapping(value = "/categories")
     @ResponseBody
-    public ResponseEntity<List<Category>> getCategories() {
-        return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
+    public List<Category> getCategories() {
+        return categoryService.findAll();
     }
 
     @GetMapping(value = "/categories/{id}")
     @ResponseBody
-    public ResponseEntity<Category> getCategory(@PathVariable Long id) throws ItemNotFoundException {
-        return new ResponseEntity<>(categoryService.getCategory(id), HttpStatus.OK);
+    public Category getCategory(@PathVariable Long id) throws ItemNotFoundException {
+        return categoryService.getCategory(id);
     }
 
     @GetMapping(value = "/categories/{id}/books")
     @ResponseBody
-    public ResponseEntity<List<Book>> getCategoryBooks(@PathVariable Long id) throws ItemNotFoundException {
-        return new ResponseEntity<>(categoryService.getCategoryBooks(id), HttpStatus.OK);
+    public List<Book> getCategoryBooks(@PathVariable Long id) throws ItemNotFoundException {
+        return categoryService.getCategoryBooks(id);
     }
 
     @PostMapping(value = "/categories", headers="Accept=application/json")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
-
-        categoryService.addCategory(category);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long addCategory(@RequestBody Category category) {
+        return categoryService.addCategory(category);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/categories/{id}", headers="Accept=application/json")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+    public void updateCategory(@PathVariable Long id, @RequestBody Category category) {
 
         category.setId(id);
         categoryService.updateCategory(category);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

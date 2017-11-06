@@ -23,42 +23,32 @@ public class BookController {
 
     @GetMapping(value = {"/", "/books"})
     @ResponseBody
-    public ResponseEntity<List<Book>> home() {
-        return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+    public List<Book> home() {
+        return bookService.findAll();
     }
 
     @GetMapping("/books/{id}")
     @ResponseBody
-    public ResponseEntity<Book> getBook(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
-        } catch (ItemNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public Book getBook(@PathVariable Long id) throws ItemNotFoundException {
+        return bookService.getBook(id);
     }
 
     @PostMapping(value = "/books", headers="Accept=application/json")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-
-        bookService.addBook(book);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long addBook(@RequestBody Book book) {
+        return bookService.addBook(book);
     }
 
     @PutMapping(value = "/books/{id}", headers="Accept=application/json")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
-
+    @ResponseStatus(HttpStatus.OK)
+    public void updateBook(@PathVariable Long id, @RequestBody Book book) {
         bookService.updateBook(book);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/books/{id}")
-    public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
-
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

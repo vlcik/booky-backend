@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IBookService {
     List<Book> findAll();
-    void addBook(Book book);
+    Long addBook(Book book);
     void deleteBook(Long id);
     void updateBook(Book book);
     Book getBook(Long id) throws ItemNotFoundException;

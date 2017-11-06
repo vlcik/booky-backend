@@ -9,7 +9,7 @@ import java.util.List;
 public interface ICategoryService {
     List<Category> findAll();
     Category getCategory(Long id) throws ItemNotFoundException;
-    void addCategory(Category category);
+    Long addCategory(Category category);
     void updateCategory(Category category);
 
     List<Book> getCategoryBooks(Long id) throws ItemNotFoundException;

@@ -41,8 +41,8 @@ public class AuthorService implements IAuthorService {
 
     @Override
     @Transactional
-    public void addAuthor(Author author) {
-        authorDao.saveEntity(author);
+    public Long addAuthor(Author author) {
+        return authorDao.saveEntity(author);
     }
 
     @Override

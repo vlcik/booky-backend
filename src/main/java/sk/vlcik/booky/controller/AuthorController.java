@@ -26,31 +26,25 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/authors")
-    public ResponseEntity<List<Author>> getAuthors() {
-        return new ResponseEntity<>(authorService.getAuthors(), HttpStatus.OK);
+    public List<Author> getAuthors() {
+        return authorService.getAuthors();
     }
 
     @PostMapping(value = "/authors", headers="Accept=application/json")
-    public ResponseEntity<Author> addAuthor(@RequestBody Author author) {
-
-        authorService.addAuthor(author);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long addAuthor(@RequestBody Author author) {
+        return authorService.addAuthor(author);
     }
 
     @PutMapping(value = "/authors/{id}", headers="Accept=application/json")
-    public ResponseEntity<Author> updateBook(@PathVariable Long id, @RequestBody Author author) {
-
+    @ResponseStatus(HttpStatus.OK)
+    public void updateBook(@PathVariable Long id, @RequestBody Author author) {
         authorService.updateAuthor(author);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/authors/{id}")
-    public ResponseEntity<Author> deleteAuthor(@PathVariable Long id) {
-
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

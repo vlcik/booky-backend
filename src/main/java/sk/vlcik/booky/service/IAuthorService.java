@@ -10,7 +10,7 @@ public interface IAuthorService {
     Author getAuthor(Long id) throws ItemNotFoundException;
     List<Book> getAuthorBooks(Long id) throws ItemNotFoundException;
     List<Author> getAuthors();
-    void addAuthor(Author author);
+    Long addAuthor(Author author);
     void updateAuthor(Author author);
     void deleteAuthor(Long id);
 }
