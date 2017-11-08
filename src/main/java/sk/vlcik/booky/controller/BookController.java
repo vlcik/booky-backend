@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sk.vlcik.booky.domain.dto.BookDto;
+import sk.vlcik.booky.domain.dto.CreateBookDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
 import sk.vlcik.booky.domain.entity.Book;
 import sk.vlcik.booky.service.IBookService;
@@ -38,14 +39,14 @@ public class BookController {
 
     @PostMapping(value = "/books", headers="Accept=application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public Long addBook(@RequestBody CreateBookDto createBookDto) {
+        return bookService.addBook(createBookDto);
     }
 
     @PutMapping(value = "/books/{id}", headers="Accept=application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void updateBook(@PathVariable Long id, @RequestBody Book book) {
-        bookService.updateBook(book);
+    public void updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
+        bookService.updateBook(bookDto);
     }
 
     @DeleteMapping(value = "/books/{id}")

@@ -48,14 +48,14 @@ public class AuthorService extends AbstractService implements IAuthorService {
 
     @Override
     @Transactional
-    public Long addAuthor(Author author) {
-        return authorDao.saveEntity(author);
+    public Long addAuthor(AuthorDto authorDto) {
+        return authorDao.saveEntity(mapper.mapBetweenEntityDto(authorDto, Author.class));
     }
 
     @Override
     @Transactional
-    public void updateAuthor(Author author) {
-        authorDao.updateEntity(author);
+    public void updateAuthor(AuthorDto authorDto) {
+        authorDao.updateEntity(mapper.mapBetweenEntityDto(authorDto, Author.class));
     }
 
     @Override

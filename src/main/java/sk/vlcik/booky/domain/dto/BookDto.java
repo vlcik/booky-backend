@@ -1,8 +1,6 @@
 package sk.vlcik.booky.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,13 +14,13 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class BookDto implements Serializable {
 
     private Long id;
 
     private String name;
 
-    @JsonManagedReference
     private AuthorDto author;
 
     private Category category;

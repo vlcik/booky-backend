@@ -46,15 +46,15 @@ public class CategoryController {
 
     @PostMapping(value = "/categories", headers="Accept=application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long addCategory(@RequestBody Category category) {
-        return categoryService.addCategory(category);
+    public Long addCategory(@RequestBody CategoryDto categoryDto) {
+        return categoryService.addCategory(categoryDto);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/categories/{id}", headers="Accept=application/json")
-    public void updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        category.setId(id);
-        categoryService.updateCategory(category);
+    public void updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) {
+        categoryDto.setId(id);
+        categoryService.updateCategory(categoryDto);
     }
 
     @DeleteMapping(value = "/categories/{id}")

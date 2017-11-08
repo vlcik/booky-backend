@@ -44,14 +44,14 @@ public class CategoryService extends AbstractService implements ICategoryService
 
     @Override
     @Transactional
-    public void updateCategory(Category category) {
-        categoryDao.updateEntity(category);
+    public void updateCategory(CategoryDto categoryDto) {
+        categoryDao.updateEntity(mapper.mapBetweenEntityDto(categoryDto, Category.class));
     }
 
     @Override
     @Transactional
-    public Long addCategory(Category category) {
-        return categoryDao.saveEntity(category);
+    public Long addCategory(CategoryDto categoryDto) {
+        return categoryDao.saveEntity(mapper.mapBetweenEntityDto(categoryDto, Category.class));
     }
 
     @Override
