@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 public class BookService extends AbstractService implements IBookService {
 
-    @Autowired
     private IBookDao bookDao;
+
+    @Autowired
+    public BookService(IBookDao bookDao) {
+        this.bookDao = bookDao;
+    }
 
     @Transactional
     @Override

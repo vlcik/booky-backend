@@ -19,8 +19,12 @@ import java.util.List;
 @Service
 public class AuthorService extends AbstractService implements IAuthorService {
 
-    @Autowired
     private IAuthorDao authorDao;
+
+    @Autowired
+    public AuthorService(IAuthorDao authorDao) {
+        this.authorDao = authorDao;
+    }
 
     @Transactional
     @Override

@@ -17,8 +17,12 @@ import java.util.List;
 @Service
 public class CategoryService extends AbstractService implements ICategoryService {
 
-    @Autowired
     private ICategoryDao categoryDao;
+
+    @Autowired
+    public CategoryService(ICategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
 
     @Transactional
     @Override

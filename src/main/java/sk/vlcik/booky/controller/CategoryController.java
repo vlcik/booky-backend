@@ -8,6 +8,7 @@ import sk.vlcik.booky.domain.dto.CategoryDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
 import sk.vlcik.booky.domain.entity.Book;
 import sk.vlcik.booky.domain.entity.Category;
+import sk.vlcik.booky.service.IAuthorService;
 import sk.vlcik.booky.service.ICategoryService;
 
 import java.util.List;
@@ -15,8 +16,12 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    public CategoryController(ICategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping(value = "/categories")
     @ResponseBody

@@ -16,8 +16,12 @@ import java.util.stream.Collectors;
 @RestController
 public class AuthorController {
 
-    @Autowired
     private IAuthorService authorService;
+
+    @Autowired
+    public AuthorController(IAuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @RequestMapping(value = "/authors/{authorId:[\\d]+}", method = RequestMethod.GET)
     @ResponseBody

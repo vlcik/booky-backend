@@ -17,8 +17,12 @@ public class BookController {
 
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
-    @Autowired
     private IBookService bookService;
+
+    @Autowired
+    public BookController(IBookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping(value = {"/", "/books"})
     @ResponseBody
