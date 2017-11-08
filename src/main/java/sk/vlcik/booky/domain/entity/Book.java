@@ -1,11 +1,6 @@
-package sk.vlcik.booky.model;
+package sk.vlcik.booky.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,9 +17,8 @@ public class Book implements Serializable {
     @Column
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", updatable = false, insertable = false, nullable=false)
-    @JsonManagedReference
     private Author author;
 
     @OneToOne

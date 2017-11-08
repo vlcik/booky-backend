@@ -2,41 +2,44 @@ package sk.vlcik.booky.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.vlcik.booky.dao.IAuthorDao;
-import sk.vlcik.booky.dao.IBookDao;
-import sk.vlcik.booky.dao.impl.BookDao;
+import sk.vlcik.booky.domain.Mapper;
+import sk.vlcik.booky.domain.dao.IAuthorDao;
+import sk.vlcik.booky.domain.dao.IBookDao;
+import sk.vlcik.booky.domain.dto.AuthorDto;
+import sk.vlcik.booky.domain.dto.BookDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Author;
-import sk.vlcik.booky.model.Book;
+import sk.vlcik.booky.domain.entity.Author;
+import sk.vlcik.booky.domain.entity.Book;
+import sk.vlcik.booky.service.AbstractService;
 import sk.vlcik.booky.service.IAuthorService;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class AuthorService implements IAuthorService {
+public class AuthorService extends AbstractService implements IAuthorService {
 
     @Autowired
     private IAuthorDao authorDao;
 
     @Transactional
     @Override
-    public Author getAuthor(Long id) throws ItemNotFoundException {
-        Author author = authorDao.getEntity(id);
-        author.setBooks(authorDao.findAuthorBooks(id));
-        return author;
+    public AuthorDto getAuthor(Long id) throws ItemNotFoundException {
+        AuthorDto authorDto = mapper.mapBetweenEntityDto(authorDao.getEntity(id), AuthorDto.class);
+        authorDto.setBooks(mapper.mapListEntityDto(authorDao.findAuthorBooks(id), BookDto.class));
+        return authorDto;
     }
 
     @Override
     @Transactional
-    public List<Book> getAuthorBooks(Long id) throws ItemNotFoundException {
-        return authorDao.findAuthorBooks(id);
+    public List<BookDto> getAuthorBooks(Long id) throws ItemNotFoundException {
+        return mapper.mapListEntityDto(authorDao.findAuthorBooks(id), BookDto.class);
     }
 
     @Override
     @Transactional
-    public List<Author> getAuthors() {
-        return authorDao.findAll();
+    public List<AuthorDto> getAuthors() {
+        return mapper.mapListEntityDto(authorDao.findAll(), AuthorDto.class);
     }
 
     @Override

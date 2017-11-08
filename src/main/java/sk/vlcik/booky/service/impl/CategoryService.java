@@ -2,37 +2,40 @@ package sk.vlcik.booky.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.vlcik.booky.dao.ICategoryDao;
+import sk.vlcik.booky.domain.dao.ICategoryDao;
+import sk.vlcik.booky.domain.dto.BookDto;
+import sk.vlcik.booky.domain.dto.CategoryDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Book;
-import sk.vlcik.booky.model.Category;
+import sk.vlcik.booky.domain.entity.Book;
+import sk.vlcik.booky.domain.entity.Category;
+import sk.vlcik.booky.service.AbstractService;
 import sk.vlcik.booky.service.ICategoryService;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class CategoryService implements ICategoryService {
+public class CategoryService extends AbstractService implements ICategoryService {
 
     @Autowired
     private ICategoryDao categoryDao;
 
     @Transactional
     @Override
-    public List<Category> findAll(){
-        return categoryDao.findAll();
+    public List<CategoryDto> findAll(){
+        return mapper.mapListEntityDto(categoryDao.findAll(), CategoryDto.class);
     }
 
     @Override
     @Transactional
-    public List<Book> getCategoryBooks(Long id) throws ItemNotFoundException {
-        return categoryDao.getCategoryBooks(id);
+    public List<BookDto> getCategoryBooks(Long id) throws ItemNotFoundException {
+        return mapper.mapListEntityDto(categoryDao.getCategoryBooks(id), BookDto.class);
     }
 
     @Transactional
     @Override
-    public Category getCategory(Long id) throws ItemNotFoundException {
-        return categoryDao.getEntity(id);
+    public CategoryDto getCategory(Long id) throws ItemNotFoundException {
+        return mapper.mapBetweenEntityDto(categoryDao.getEntity(id), CategoryDto.class);
     }
 
     @Override
@@ -45,5 +48,11 @@ public class CategoryService implements ICategoryService {
     @Transactional
     public Long addCategory(Category category) {
         return categoryDao.saveEntity(category);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCategory(Long id) {
+        categoryDao.delete(id);
     }
 }

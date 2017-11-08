@@ -4,29 +4,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.vlcik.booky.model.Author;
+import sk.vlcik.booky.domain.Mapper;
+import sk.vlcik.booky.domain.entity.Author;
+import sk.vlcik.booky.domain.dto.AuthorDto;
 import sk.vlcik.booky.service.IAuthorService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class AuthorController {
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthorController.class);
 
     @Autowired
     private IAuthorService authorService;
 
     @RequestMapping(value = "/authors/{authorId:[\\d]+}", method = RequestMethod.GET)
     @ResponseBody
-    public Author getAuthorBooks(@PathVariable Long authorId) {
+    public AuthorDto getAuthorBooks(@PathVariable Long authorId) {
         return authorService.getAuthor(authorId);
     }
 
     @GetMapping(value = "/authors")
-    public List<Author> getAuthors() {
+    public List<AuthorDto> getAuthors() {
         return authorService.getAuthors();
     }
 

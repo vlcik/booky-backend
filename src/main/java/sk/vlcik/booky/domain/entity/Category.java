@@ -1,4 +1,4 @@
-package sk.vlcik.booky.model;
+package sk.vlcik.booky.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

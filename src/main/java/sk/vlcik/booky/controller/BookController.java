@@ -4,13 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.vlcik.booky.domain.dto.BookDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Book;
+import sk.vlcik.booky.domain.entity.Book;
 import sk.vlcik.booky.service.IBookService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -23,13 +22,13 @@ public class BookController {
 
     @GetMapping(value = {"/", "/books"})
     @ResponseBody
-    public List<Book> home() {
+    public List<BookDto> home() {
         return bookService.findAll();
     }
 
     @GetMapping("/books/{id}")
     @ResponseBody
-    public Book getBook(@PathVariable Long id) throws ItemNotFoundException {
+    public BookDto getBook(@PathVariable Long id) throws ItemNotFoundException {
         return bookService.getBook(id);
     }
 

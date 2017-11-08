@@ -1,11 +1,11 @@
-package sk.vlcik.booky.dao.impl;
+package sk.vlcik.booky.domain.dao.impl;
 
 import org.springframework.stereotype.Repository;
-import sk.vlcik.booky.dao.IAuthorDao;
-import sk.vlcik.booky.dao.GenericDao;
+import sk.vlcik.booky.domain.dao.IAuthorDao;
+import sk.vlcik.booky.domain.dao.GenericDao;
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Author;
-import sk.vlcik.booky.model.Book;
+import sk.vlcik.booky.domain.entity.Author;
+import sk.vlcik.booky.domain.entity.Book;
 
 import java.util.List;
 

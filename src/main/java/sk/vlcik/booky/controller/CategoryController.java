@@ -2,12 +2,12 @@ package sk.vlcik.booky.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.vlcik.booky.domain.dto.BookDto;
+import sk.vlcik.booky.domain.dto.CategoryDto;
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Book;
-import sk.vlcik.booky.model.Category;
+import sk.vlcik.booky.domain.entity.Book;
+import sk.vlcik.booky.domain.entity.Category;
 import sk.vlcik.booky.service.ICategoryService;
 
 import java.util.List;
@@ -20,20 +20,23 @@ public class CategoryController {
 
     @GetMapping(value = "/categories")
     @ResponseBody
-    public List<Category> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categoryService.findAll();
     }
 
     @GetMapping(value = "/categories/{id}")
     @ResponseBody
-    public Category getCategory(@PathVariable Long id) throws ItemNotFoundException {
+    public CategoryDto getCategory(@PathVariable Long id) throws ItemNotFoundException {
         return categoryService.getCategory(id);
     }
 
     @GetMapping(value = "/categories/{id}/books")
     @ResponseBody
-    public List<Book> getCategoryBooks(@PathVariable Long id) throws ItemNotFoundException {
-        return categoryService.getCategoryBooks(id);
+    public CategoryDto getCategoryBooks(@PathVariable Long id) throws ItemNotFoundException {
+        List<BookDto> books = categoryService.getCategoryBooks(id);
+        CategoryDto categoryDto = categoryService.getCategory(id);
+        categoryDto.setBooks(books);
+        return categoryDto;
     }
 
     @PostMapping(value = "/categories", headers="Accept=application/json")
@@ -45,8 +48,13 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/categories/{id}", headers="Accept=application/json")
     public void updateCategory(@PathVariable Long id, @RequestBody Category category) {
-
         category.setId(id);
         categoryService.updateCategory(category);
+    }
+
+    @DeleteMapping(value = "/categories/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
     }
 }

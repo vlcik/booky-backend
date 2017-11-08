@@ -1,8 +1,8 @@
-package sk.vlcik.booky.dao;
+package sk.vlcik.booky.domain.dao;
 
 import sk.vlcik.booky.exception.ItemNotFoundException;
-import sk.vlcik.booky.model.Book;
-import sk.vlcik.booky.model.Category;
+import sk.vlcik.booky.domain.entity.Book;
+import sk.vlcik.booky.domain.entity.Category;
 
 import java.util.List;
 

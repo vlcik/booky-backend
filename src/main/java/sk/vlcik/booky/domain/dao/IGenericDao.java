@@ -1,4 +1,4 @@
-package sk.vlcik.booky.dao;
+package sk.vlcik.booky.domain.dao;
 
 import sk.vlcik.booky.exception.ItemNotFoundException;
 

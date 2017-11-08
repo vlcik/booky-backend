@@ -1,17 +1,13 @@
-package sk.vlcik.booky.model;
+package sk.vlcik.booky.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Author implements Serializable{
+public class Author implements Serializable {
 
     @Id
     @SequenceGenerator(name="author_seq", sequenceName="author_id_seq")
@@ -21,9 +17,8 @@ public class Author implements Serializable{
     @Column
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author", updatable = false, insertable = false, nullable=false)
-    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", updatable = false, insertable = false, nullable=false)
     private List<Book> books;
 
     public Long getId() {

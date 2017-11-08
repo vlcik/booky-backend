@@ -1,4 +1,4 @@
-package sk.vlcik.booky.dao;
+package sk.vlcik.booky.domain.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,6 @@ import sk.vlcik.booky.exception.ItemNotFoundException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
