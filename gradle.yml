@@ -1,0 +1,5 @@
+#liquibase:
+#    dev:
+#        url: URL
+#        username: USER
+#        password: PASS

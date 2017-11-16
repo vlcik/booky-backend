@@ -1,0 +1,15 @@
+jdbc:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/booky
+    username: postgres
+    password: iddqd
+
+hibernate:
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+    show_sql: false
+    format_sql: true
+
+spring:
+    jackson:
+        serialization:
+            INDENT_OUTPUT: true

@@ -1,5 +1,20 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.liquibase:liquibase-core:3.4.1'
+        classpath "org.liquibase:liquibase-gradle-plugin:1.1.1"
+        classpath 'org.postgresql:postgresql:42.1.1'
+        classpath 'pl.softmate:gradle-properties-yaml-plugin:0.0.2'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'liquibase'
+apply plugin: 'pl.softmate.gradle-properties-yaml-plugin'
 
 repositories{
     mavenCentral()
@@ -12,11 +27,14 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
     compile "org.springframework:spring-orm:5.0.0.RELEASE"
     compile "org.hibernate:hibernate-core:5.2.11.Final"
-    compile "org.hibernate:hibernate-annotations:3.5.6-final"
     compile "org.postgresql:postgresql:42.1.1"
     compile "org.quartz-scheduler:quartz:2.2.1"
     compile('ma.glasnost.orika:orika-core:1.5.1')
     compile('org.projectlombok:lombok:1.16.18')
+
+    // liquibase
+    compile('org.liquibase:liquibase-core:3.4.1')
+    compile('org.liquibase:liquibase-gradle-plugin:1.1.1')
 
     testCompile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
@@ -24,4 +42,20 @@ dependencies {
     testCompile 'io.rest-assured:rest-assured:3.0.5'
     testCompile "org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE"
     testCompile "org.testng:testng:6.9.4"
+}
+
+def changeLog = "$projectDir/src/main/resources/db/changelog-initial.xml"
+
+task('dev') {
+    println "Setting dev environment"
+    liquibase {
+        activities {
+            main {
+                changeLogFile changeLog
+                url project.ext.properties['liquibase.dev.url']
+                username project.ext.properties['liquibase.dev.username']
+                password project.ext.properties['liquibase.dev.password']
+            }
+        }
+    }
 }
